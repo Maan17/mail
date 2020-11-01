@@ -58,10 +58,46 @@ function load_mailbox(mailbox) {
     .then(response => response.json())
     .then(emails => {
         console.log(emails);
-        var col=['sender','subject','timestamp'].forEach(element=>{
-          document.querySelector('#email-body').innerHTML+=`${emails[0][element]}`;
-        })
-        
-        // ... do something else with emails ...
+    
+        //Build an array containing mails
+        var mail=[]
+        var k=1
+        mail[0]=["sender","subject","timestamp"]
+        for(var i=0;i<emails.length;i++){
+          var elem=[];
+          ['sender','subject','timestamp'].forEach(element=>{
+            elem.push(emails[i][element]);
+          });
+          mail[k]=elem
+          k++
+        }
+        console.log(mail)
+
+        //Create a HTML table element
+        var table=document.createElement("Table");
+        table.border="1";
+
+        //Get the count of columns
+        var columnCount=mail[0].length;
+
+        //Add header row
+        var row=table.insertRow(-1);
+        for(var i=0;i<columnCount;i++){
+          var headerCell=document.createElement("TH");
+          headerCell.innerHTML=mail[0][i];
+          row.appendChild(headerCell);
+        }
+
+        //Add the header row
+        for(var i=1; i<mail.length; i++){
+          row=table.insertRow(-1);
+          for(var j=0; j<columnCount; j++){
+            var cell=row.insertCell(-1);
+            cell.innerHTML=mail[i][j];
+          }
+        }
+        var dvTable = document.getElementById("dvTable");
+        dvTable.innerHTML="";
+        dvTable.appendChild(table);
     });
-  }
+}
