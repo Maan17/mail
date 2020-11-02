@@ -42,7 +42,7 @@ function send_mail(){
       .catch(error=>{
         console.log('Error:',error);
     });
-      return false;
+    return false;
 }
 
 function load_mailbox(mailbox) {
@@ -65,7 +65,7 @@ function load_mailbox(mailbox) {
         mail[0]=["sender","subject","timestamp"]
         for(var i=0;i<emails.length;i++){
           var elem=[];
-          ['sender','subject','timestamp'].forEach(element=>{
+          ['sender','subject','timestamp','read'].forEach(element=>{
             elem.push(emails[i][element]);
           });
           mail[k]=elem
@@ -88,9 +88,15 @@ function load_mailbox(mailbox) {
           row.appendChild(headerCell);
         }
 
-        //Add the header row
+        //Add the rest rows
         for(var i=1; i<mail.length; i++){
           row=table.insertRow(-1);
+          if(mail[i][3]){
+            row.setAttribute("id","read");
+          }
+          else{
+            row.setAttribute("id","unread");
+          }
           for(var j=0; j<columnCount; j++){
             var cell=row.insertCell(-1);
             cell.innerHTML=mail[i][j];
@@ -99,5 +105,8 @@ function load_mailbox(mailbox) {
         var dvTable = document.getElementById("dvTable");
         dvTable.innerHTML="";
         dvTable.appendChild(table);
+        $('tr').click(function () {
+           $(this).attr('id', 'read'); 
+        });   
     });
 }

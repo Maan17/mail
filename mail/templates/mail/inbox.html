@@ -1,6 +1,5 @@
 {% extends "mail/layout.html" %}
 {% load static %}
-
 {% block body %}
     <h2>{{ request.user.email }}</h2>
 
@@ -37,4 +36,5 @@
 
 {% block script %}
     <script src="{% static 'mail/inbox.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {% endblock %}
