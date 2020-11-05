@@ -130,6 +130,22 @@ function view(mail){
   fetch(`/emails/${mail}`)
   .then(response => response.json())
   .then(emails => {
+
+      if(emails.archived==true){
+       var ar=document.getElementById("archive")
+       ar.innerHTML="Unarchive";
+       $("#archive").click(function(){
+        archive(emails.archived,mail)
+       })
+      }
+      else{
+       var ar=document.getElementById("archive")
+       ar.innerHTML="Archive";
+       $("#archive").click(function(){
+        archive(emails.archived,mail)
+       })
+      }
+
       var send=document.getElementById("sender-email");
       send.innerHTML=emails.sender;
 
@@ -158,4 +174,32 @@ function view(mail){
       view.appendChild(table);
       return false;
   });
+}
+
+//archive function
+function archive(archive,mail){
+  //archiving
+  if(archive==false){
+  fetch(`/emails/${mail}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+         archived: true
+    })
+  })
+  //loading mailbox after archiving
+  load_mailbox('inbox');
+  return false;
+ }
+ //unarchiving
+ else{
+  fetch(`/emails/${mail}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+         archived: false
+    })
+  })
+  //loading mailbox after unarchiving
+  load_mailbox('inbox');
+  return false;
+ }
 }
