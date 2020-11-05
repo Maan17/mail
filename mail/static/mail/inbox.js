@@ -45,6 +45,7 @@ function send_mail(){
     return false;
 }
 
+
 function load_mailbox(mailbox) {
   
     // Show the mailbox and hide other views
@@ -105,8 +106,27 @@ function load_mailbox(mailbox) {
         var dvTable = document.getElementById("dvTable");
         dvTable.innerHTML="";
         dvTable.appendChild(table);
+
+        //mark as read on clicking the row
+        //and call the view function to view email
         $('tr').click(function () {
-           $(this).attr('id', 'read'); 
+           $(this).attr('id', 'read');
+           console.log($(this).index());
+           text=$(this).index()
+           text-=1
+           console.log(emails[text].id)
+           id=emails[text].id
+           view(id);
         });   
     });
+}
+
+function view(mail){
+  fetch(`/emails/${mail}`)
+  .then(response => response.json())
+  .then(email => {
+      // Print email
+      console.log(email);
+
+  });
 }
