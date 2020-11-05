@@ -49,9 +49,9 @@ function send_mail(){
 function load_mailbox(mailbox) {
   
     // Show the mailbox and hide other views
-    
     document.querySelector('#emails-view').style.display = 'block';
     document.querySelector('#compose-view').style.display = 'none';
+    document.querySelector('#detail-view').style.display = 'none';
 
     // Show the mailbox name
     document.querySelector('#email-title').innerHTML = `${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}`;
@@ -89,7 +89,7 @@ function load_mailbox(mailbox) {
           row.appendChild(headerCell);
         }
 
-        //Add the rest rows
+        //Add the rows
         for(var i=1; i<mail.length; i++){
           row=table.insertRow(-1);
           if(mail[i][3]){
@@ -122,11 +122,40 @@ function load_mailbox(mailbox) {
 }
 
 function view(mail){
+  //show only the detail view and hide other views
+  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#compose-view').style.display = 'none';
+  document.querySelector('#detail-view').style.display = 'block';
+
   fetch(`/emails/${mail}`)
   .then(response => response.json())
-  .then(email => {
-      // Print email
-      console.log(email);
+  .then(emails => {
+      var send=document.getElementById("sender-email");
+      send.innerHTML=emails.sender;
 
+      // Print email
+      console.log(emails.sender);
+      var msg=["sender","subject","body","timestamp","receiver"]
+
+      //Create a HTML table element
+      var table=document.createElement("Table");
+      table.border="1";
+      
+      //create a row for each element
+      ['sender','subject','timestamp','recipients'].forEach(element=>{
+        var row=table.insertRow(-1);
+        for(var j=0; j<2; j++){
+          var cell=row.insertCell(-1);
+          if(j==0)
+           cell.innerHTML=element;
+          else
+           cell.innerHTML=emails[element];
+        }
+      });
+        
+      var view = document.getElementById("view-table");
+      view.innerHTML="";
+      view.appendChild(table);
+      return false;
   });
 }
