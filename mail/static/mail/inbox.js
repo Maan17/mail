@@ -146,6 +146,11 @@ function view(mail){
        })
       }
 
+      //call reply function on clicking reply button
+      $("#reply").click(function(){
+        reply(mail)
+      })
+
       var send=document.getElementById("sender-email");
       send.innerHTML=emails.sender;
 
@@ -158,7 +163,7 @@ function view(mail){
       table.border="1";
       
       //create a row for each element
-      ['sender','subject','timestamp','recipients'].forEach(element=>{
+      ['sender','subject','timestamp','recipients','body'].forEach(element=>{
         var row=table.insertRow(-1);
         for(var j=0; j<2; j++){
           var cell=row.insertCell(-1);
@@ -202,4 +207,20 @@ function archive(archive,mail){
   load_mailbox('inbox');
   return false;
  }
+}
+
+function reply(mail){
+  // Show compose view and hide other views
+  document.querySelector('#emails-view').style.display = 'none';
+  document.querySelector('#compose-view').style.display = 'block';
+  document.querySelector('#detail-view').style.display = 'none';
+
+  // Clear out composition fields
+  fetch(`/emails/${mail}`)
+  .then(response => response.json())
+  .then(emails => {
+  document.querySelector('#compose-recipients').value = emails.sender;
+  document.querySelector('#compose-subject').value = 'Re:';
+  document.querySelector('#compose-body').value = '\n\n\n-------------On '+emails.timestamp+' '+emails.sender+' '+'wrote:\n'+emails.body;
+  });
 }
