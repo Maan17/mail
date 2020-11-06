@@ -57,9 +57,7 @@ function load_mailbox(mailbox) {
     document.querySelector('#email-title').innerHTML = `${mailbox.charAt(0).toUpperCase() + mailbox.slice(1)}`;
     fetch(`/emails/${mailbox}`)
     .then(response => response.json())
-    .then(emails => {
-        console.log(emails);
-    
+    .then(emails => {   
         //Build an array containing mails
         var mail=[]
         var k=1
@@ -72,8 +70,6 @@ function load_mailbox(mailbox) {
           mail[k]=elem
           k++
         }
-        console.log(mail)
-
         //Create a HTML table element
         var table=document.createElement("Table");
         table.border="1";
@@ -92,6 +88,10 @@ function load_mailbox(mailbox) {
         //Add the rows
         for(var i=1; i<mail.length; i++){
           row=table.insertRow(-1);
+          //checking whther the mail is read or not
+          if(emails.read==true){
+            $('tr').addId("read")
+          }
           if(mail[i][3]){
             row.setAttribute("id","read");
           }
@@ -110,12 +110,15 @@ function load_mailbox(mailbox) {
         //mark as read on clicking the row
         //and call the view function to view email
         $('tr').click(function () {
-           $(this).attr('id', 'read');
-           console.log($(this).index());
            text=$(this).index()
            text-=1
-           console.log(emails[text].id)
            id=emails[text].id
+           fetch(`/emails/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                read: true
+            })
+          })
            view(id);
         });   
     });
@@ -155,7 +158,6 @@ function view(mail){
       send.innerHTML=emails.sender;
 
       // Print email
-      console.log(emails.sender);
       var msg=["sender","subject","body","timestamp","receiver"]
 
       //Create a HTML table element
