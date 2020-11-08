@@ -14,6 +14,7 @@ function compose_email() {
     // Show compose view and hide other views
     document.querySelector('#emails-view').style.display = 'none';
     document.querySelector('#compose-view').style.display = 'block';
+    document.querySelector('#detail-view').style.display = 'none';
 
     // Clear out composition fields
     document.querySelector('#compose-recipients').value = '';
@@ -81,14 +82,13 @@ function load_mailbox(mailbox) {
         var row=table.insertRow(-1);
         for(var i=0;i<columnCount;i++){
           var headerCell=document.createElement("TH");
-          headerCell.innerHTML=mail[0][i];
           row.appendChild(headerCell);
         }
 
         //Add the rows
         for(var i=1; i<mail.length; i++){
           row=table.insertRow(-1);
-          //checking whther the mail is read or not
+          //checking whether the mail is read or not
           if(emails.read==true){
             $('tr').addId("read")
           }
@@ -154,31 +154,25 @@ function view(mail){
         reply(mail)
       })
 
+      //display subject
       var send=document.getElementById("sender-email");
-      send.innerHTML=emails.sender;
+      send.innerHTML=emails.subject;
 
-      // Print email
-      var msg=["sender","subject","body","timestamp","receiver"]
+      //display sender and receiver
+      var from=document.getElementById("from");
+      var str1=emails.sender.fontcolor("#61892F");
+      var str=emails.recipients;
+      var str2=str.toString().fontcolor("#61892F");
+      from.innerHTML="From: "+str1+"<br>To: "+str2;
 
-      //Create a HTML table element
-      var table=document.createElement("Table");
-      table.border="1";
+      //display date and time
+      var but=document.getElementById("but1");
+      but.innerHTML=emails.timestamp;
       
-      //create a row for each element
-      ['sender','subject','timestamp','recipients','body'].forEach(element=>{
-        var row=table.insertRow(-1);
-        for(var j=0; j<2; j++){
-          var cell=row.insertCell(-1);
-          if(j==0)
-           cell.innerHTML=element;
-          else
-           cell.innerHTML=emails[element];
-        }
-      });
-        
-      var view = document.getElementById("view-table");
-      view.innerHTML="";
-      view.appendChild(table);
+      //display content
+      var body=document.getElementById("body");
+      body.innerHTML=emails.body.fontcolor("#86C232");
+
       return false;
   });
 }

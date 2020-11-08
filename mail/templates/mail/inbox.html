@@ -1,29 +1,35 @@
 {% extends "mail/layout.html" %}
 {% load static %}
 {% block body %}
-    <h2>{{ request.user.email }}</h2>
+<div id="header">
+    <h2 id="mail-id">{{ request.user.email }}</h2>
 
     <button class="btn btn-sm btn-outline-primary" id="inbox">Inbox</button>
     <button class="btn btn-sm btn-outline-primary" id="compose">Compose</button>
     <button class="btn btn-sm btn-outline-primary" id="sent">Sent</button>
     <button class="btn btn-sm btn-outline-primary" id="archived">Archived</button>
     <a class="btn btn-sm btn-outline-primary" href="{% url 'logout' %}">Log Out</a>
-    <hr>
-
+    <hr style="border-color:#6B6E70">
+</div>
+<div id="inside">
     <div id="emails-view">
-        <h3 id="email-title"></h3>
+        <h3 style="color:#6B6E70" id="email-title"></h3>
         <h4 id="dvTable"></h4>
     </div>
 
     <div id="compose-view">
         <h3>New Email</h3>
-        <form id="compose-form" method="POST">
+        <form id="compose-form" method="POST" class="compose">
             {% csrf_token %}
             <div class="form-group">
-                From: <input disabled class="form-control" value="{{ request.user.email }}">
-            </div>
-            <div class="form-group">
-                To: <input id="compose-recipients" class="form-control">
+                <div class="form-row">
+                    <div class="col-md-6">
+                        <input class="form-control" value="From: {{ request.user.email }}">
+                    </div>
+                    <div class="col-6">
+                        <input id="compose-recipients"  class="form-control" placeholder="To:">
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <input class="form-control" id="compose-subject" placeholder="Subject">
@@ -33,13 +39,15 @@
         </form>
     </div>
 
-    <div id="detail-view">
-        <h3 id="sender-email"></h3>
-        <button class="btn btn-sm btn-primary" id="archive"></button>
-        <button class="btn btn-sm btn-primary" id="reply">Reply</button>
-        <h4 id="view-table"></h4>
+    <div id="detail-view" class="detail">
+        <h1 id="sender-email"></h1>
+        <h6 id="but1">Timestamp</h6><br>
+        <h6 id="from"></h6>
+        <h4 id="body"></h4>
+        <button class="btn btn-sm btn-primary" id="reply" >Reply</button>
+        <button class="btn btn-sm btn-primary" id="archive" ></button>
     </div>
-
+</div>
 {% endblock %}
 
 {% block script %}
