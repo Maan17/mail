@@ -43,6 +43,7 @@ function send_mail(){
       .catch(error=>{
         console.log('Error:',error);
     });
+    load_mailbox('sent');
     return false;
 }
 
@@ -113,7 +114,7 @@ function load_mailbox(mailbox) {
            text=$(this).index()
            text-=1
            id=emails[text].id
-           fetch(`/emails/${id}`, {
+           fetch(`/emails/${id}/`, {
             method: 'PUT',
             body: JSON.stringify({
                 read: true
@@ -181,28 +182,24 @@ function view(mail){
 function archive(archive,mail){
   //archiving
   if(archive==false){
-  fetch(`/emails/${mail}`, {
+  fetch(`/emails/${mail}/`, {
     method: 'PUT',
     body: JSON.stringify({
-         archived: true
-    })
-  })
-  //loading mailbox after archiving
-  load_mailbox('inbox');
-  return false;
+         archived: true,
+    }),
+  });
  }
  //unarchiving
  else{
-  fetch(`/emails/${mail}`, {
+  fetch(`/emails/${mail}/`, {
     method: 'PUT',
     body: JSON.stringify({
-         archived: false
-    })
-  })
-  //loading mailbox after unarchiving
-  load_mailbox('inbox');
-  return false;
+         archived: false,
+    }),
+  });
  }
+ //loading mailbox after unarchiving/archiving
+ load_mailbox('inbox');
 }
 
 function reply(mail){

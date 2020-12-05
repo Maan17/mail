@@ -1,13 +1,14 @@
 textarea {
     min-height: 400px;
+    
 }
 
 #unread{
-    background-color: white;
+    background-color: #222629;
 }
 
 #read{
-    background-color: grey;
+    background-color: #474B4F;
 }
 /*header design*/
 #header{
@@ -66,15 +67,12 @@ textarea {
 table{
     width:100%;
     color: #222629;
-    border-color:#222629;
+    border:none;
 }
 
 th{
     color: #61892F;
-    border-bottom: 1px solid #474B4F;
-    border-top: 1px solid #222629;
-    border-left: 1px solid #222629;
-    border-right: 1px solid #222629;
+    border:none;
     padding:1%;
     font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
     font-weight:normal;
@@ -83,12 +81,9 @@ th{
 
 
 td{
-    background-color: #222629;
     color:#86C232;
     padding:1%;
-    border-right: 1px solid #222629;
-    border-bottom: 1px solid #474B4F;
-    border-left: 1px solid #222629;
+    border:none;
     font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
 }
 
@@ -176,6 +171,7 @@ body{
 #body{
     margin-top:20px;
     margin-bottom: 50px;
+    white-space: pre-wrap;
 }
 
 .detail{
