@@ -1,4 +1,5 @@
-# Mail *The complete working project is shown in the below video link:*
+# Mail 
+*The complete working project is shown in the below video link:*
 > https://youtu.be/7En1uxjJkd4
 <p>A front-end for an email client that makes API calls to send and receive emails.
 The complete implementation of a single-page-app email client is done using JavaScript, HTML, and CSS. </p>
