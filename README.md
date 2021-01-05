@@ -55,3 +55,6 @@ The application makes a GET request to /emails/<email_id> to request the email.
 - The composition form is pre-filled with the recipient field set to whoever sent the original email.
 - The subject line is pre-filled. If the original email had a subject line of foo, the new subject line is Re: foo. 
 - The body of the email is pre-filled with a line like "On Jan 1 2020, 12:00 AM foo@example.com wrote:" followed by the original text of the email.
+
+*The complete working project is shown in the below video link:*
+> https://youtu.be/7En1uxjJkd4
