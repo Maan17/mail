@@ -1,6 +1,6 @@
 # Mail
 <p>A front-end for an email client that makes API calls to send and receive emails.
-The complete implementation of a single-page-app email client, using JavaScript, HTML, and CSS. </p>
+The complete implementation of a single-page-app email clien is done using JavaScript, HTML, and CSS. </p>
 
 ## API
 <p> We’ll get mail, send mail, and update emails by using this application’s API. 
