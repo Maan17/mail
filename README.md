@@ -6,7 +6,7 @@ The complete implementation of a single-page-app email client, using JavaScript,
 <p> We’ll get mail, send mail, and update emails by using this application’s API. 
 This application supports the following API routes: </p>
 
-- GET /emails/<str:mailbox>
+##### GET /emails/<str:mailbox>
 <p> Sending a GET request to /emails/<mailbox> where <mailbox> is either inbox, sent, or archive will return back to you (in JSON form) a list of all emails in that mailbox, in reverse chronological order. For example, if you send a GET request to /emails/inbox, you might get a JSON response like the below (representing two emails): </p>
 <p>
 [
@@ -51,7 +51,7 @@ would make a GET request to /emails/inbox, convert the resulting response into J
 
 Note also that if you request an invalid mailbox (anything other than inbox, sent, or archive), you’ll instead get back the JSON response {"error": "Invalid mailbox."}. </p>
 
-- GET /emails/<int:email_id>
+##### GET /emails/<int:email_id>
 <p>
 Sending a GET request to /emails/email_id where email_id is an integer id for an email will return a JSON representation of the email, like the below:
 </p>
@@ -79,7 +79,8 @@ fetch('/emails/100')
 
     // ... do something else with email ...
 }); </p>
-- POST /emails
+
+##### POST /emails
 <p>
 So far, we’ve seen how to get emails: either all of the emails in a mailbox, or just a single email. To send an email, you can send a POST request to the /emails route. The route requires three pieces of data to be submitted: a recipients value (a comma-separated string of all users to send an email to), a subject string, and a body string. For example, you could write JavaScript code like </p>
 <p>
@@ -101,7 +102,7 @@ If the email is sent successfully, the route will respond with a 201 status code
 
 Note that there must be at least one email recipient: if one isn’t provided, the route will instead respond with a 400 status code and a JSON response of {"error": "At least one recipient required."}. All recipients must also be valid users who have registered on this particular web application: if you try to send an email to baz@example.com but there is no user with that email address, you’ll get a JSON response of {"error": "User with email baz@example.com does not exist."}. </p>
 
-- PUT /emails/<int:email_id>
+##### PUT /emails/<int:email_id>
 <p>
 The final route that you’ll need is the ability to mark an email as read/unread or as archived/unarchived. To do so, send a PUT request (instead of a GET) request to /emails/<email_id> where email_id is the id of the email you’re trying to modify. For example, JavaScript code like </p>
 <p>
