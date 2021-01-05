@@ -1,4 +1,5 @@
-# Mail
+# Mail *The complete working project is shown in the below video link:*
+> https://youtu.be/7En1uxjJkd4
 <p>A front-end for an email client that makes API calls to send and receive emails.
 The complete implementation of a single-page-app email client is done using JavaScript, HTML, and CSS. </p>
 
@@ -56,5 +57,4 @@ The application makes a GET request to /emails/<email_id> to request the email.
 - The subject line is pre-filled. If the original email had a subject line of foo, the new subject line is Re: foo. 
 - The body of the email is pre-filled with a line like "On Jan 1 2020, 12:00 AM foo@example.com wrote:" followed by the original text of the email.
 
-*The complete working project is shown in the below video link:*
-> https://youtu.be/7En1uxjJkd4
+
