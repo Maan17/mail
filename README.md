@@ -9,15 +9,15 @@ This application supports the following API routes: </p>
 #### **GET /emails/<str:mailbox>**
 <p> Sending a GET request to /emails/<mailbox> where <mailbox> is either inbox, sent, or archive returns back (in JSON form) a list of all emails in that mailbox, in reverse chronological order.
     
-#### GET /emails/<int:email_id>
+#### **GET /emails/<int:email_id>**
 <p> Sending a GET request to /emails/email_id where email_id is an integer id for an email will return a JSON representation of the email.
 Note that if the email doesn’t exist, or if the user does not have access to the email, the route instead return a 404 Not Found error with a JSON response of {"error": "Email not found."}. </p>
 
-#### POST /emails
+#### **POST /emails**
 <p> To send an email, a POST request to the /emails route is sent. The route requires three pieces of data to be submitted: a recipients value (a comma-separated string of all users to send an email to), a subject string, and a body string. </p>
 <p> If the email is sent successfully, the route will respond with a 201 status code and a JSON response of {"message": "Email sent successfully."}. </p>
 
-#### PUT /emails/<int:email_id>
+#### **PUT /emails/<int:email_id>**
 <p> To mark an email as read/unread or as archived/unarchived a PUT request is sent to /emails/<email_id> where email_id is the id of the email we’re trying to modify.</p>
 
 <p> Using these four API routes (getting all emails in a mailbox, getting a single email, sending an email, and updating an existing email), this project is completed. </p>
