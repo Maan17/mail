@@ -6,7 +6,7 @@ The complete implementation of a single-page-app email client is done using Java
 <p> We’ll get mail, send mail, and update emails by using this application’s API. 
 This application supports the following API routes: </p>
 
-#### GET /emails/<str:mailbox>
+#### *GET /emails/<str:mailbox>*
 <p> Sending a GET request to /emails/<mailbox> where <mailbox> is either inbox, sent, or archive returns back (in JSON form) a list of all emails in that mailbox, in reverse chronological order.
     
 #### GET /emails/<int:email_id>
